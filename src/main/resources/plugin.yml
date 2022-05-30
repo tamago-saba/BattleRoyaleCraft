@@ -1,0 +1,6 @@
+name: BattleRoyaleCraft
+version: '${project.version}'
+main: com.github.tsuoihito.battleroyalecraft.BattleRoyaleCraft
+api-version: 1.18
+authors: [ tsuoihito ]
+description: A battle royale plugin for Minecraft
