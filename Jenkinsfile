@@ -27,7 +27,7 @@ pipeline {
 
     post {
         always {
-            discordSend webhookURL: "${env.DISCORD_WEBHOOK}"
+            discordSend webhookURL: env.DISCORD_WEBHOOK
         }
     }
 
