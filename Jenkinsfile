@@ -44,7 +44,7 @@ pipeline {
                             if (count <= 10) {
                                 def entry = entries[j]
                                 def commitId = entry.commitId.substring(0, 6)
-                                message += "\n   - [`${commitId}`](${repositoryUrl}/commit/${entry.commitId}) ${entry.msg}"
+                                message += "\n   - [`${commitId}`](${repositoryUrl}/commit/${entry.commitId}) ${entry.msg} - ${entry.author}"
                                 count++
                             } else {
                                 extra++;
