@@ -7,11 +7,6 @@ pipeline {
     }
 
     stages {
-        stage("Checkout") {
-            steps {
-                scmSkip deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*'
-            }
-        }
         stage("Build") {
             agent {
                 docker {
@@ -20,6 +15,7 @@ pipeline {
                 }
             }
             steps {
+                scmSkip deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*'
                 sh "mvn clean package"
             }
             post {
