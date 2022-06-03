@@ -1,6 +1,7 @@
 package com.github.tsuoihito.battleroyalecraft.utils;
 
 import com.github.tsuoihito.battleroyalecraft.BattleRoyaleCraft;
+import com.github.tsuoihito.battleroyalecraft.model.GameState;
 import org.bukkit.GameMode;
 
 public class GameManager {
@@ -13,32 +14,60 @@ public class GameManager {
 
     public void startGame() {
 
-        plugin.getPluginState().setInGame(true);
-        plugin.getPluginState().initGame();
+        if (plugin.getGameConfig().getStart() == null) {
+            // Not set start point
+            return;
+        }
 
-        plugin.getServer().getOnlinePlayers().forEach(player -> {
+        initWorldBorder();
+        initPlayers();
 
-            player.setHealth(20);
-            player.setSaturation(20);
-            player.teleport(plugin.getGameData().getStart());
-
-            plugin.getPluginState().getGameState().addPlayerData(player.getUniqueId());
-
-        });
+        plugin.setInGame(true);
+        plugin.setGameState(new GameState());
 
     }
 
     public void finishGame() {
 
-        plugin.getPluginState().setInGame(false);
         teleportAllLobby();
+        plugin.setInGame(false);
 
     }
 
     public void teleportAllLobby() {
         plugin.getServer().getOnlinePlayers().forEach(player -> {
-            player.teleport(plugin.getGameData().getLobby());
+            player.teleport(plugin.getGameConfig().getLobby());
             player.setGameMode(GameMode.ADVENTURE);
         });
     }
+
+    private void initWorldBorder() {
+
+        if (plugin.getGameConfig().getStart().getWorld() == null) {
+            return;
+        }
+
+        if (plugin.getWorldBorder() == null) {
+            plugin.setWorldBorder(plugin.getGameConfig().getStart().getWorld().getWorldBorder());
+        }
+
+        plugin.getWorldBorder().reset();
+        plugin.getWorldBorder().setCenter(plugin.getGameConfig().getStart());
+
+    }
+
+    private void initPlayers() {
+
+        plugin.getServer().getOnlinePlayers().forEach(player -> {
+
+            player.setHealth(20);
+            player.setSaturation(20);
+            player.teleport(plugin.getGameConfig().getStart());
+
+            plugin.getGameState().addPlayerData(player.getUniqueId());
+
+        });
+
+    }
+
 }
