@@ -2,21 +2,12 @@ package com.github.tsuoihito.battleroyalecraft.model;
 
 import org.bukkit.Location;
 
-public class GameData {
+public class GameConfig {
 
-    private Location base;
     private Location lobby;
     private Location start;
 
-    public GameData(){}
-
-    public Location getBase() {
-        return base;
-    }
-
-    public void setBase(Location base) {
-        this.base = base;
-    }
+    public GameConfig() {}
 
     public Location getLobby() {
         return lobby;
