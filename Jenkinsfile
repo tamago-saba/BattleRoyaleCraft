@@ -15,7 +15,6 @@ pipeline {
                 }
             }
             steps {
-                scmSkip deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*'
                 sh "mvn clean package"
             }
             post {
