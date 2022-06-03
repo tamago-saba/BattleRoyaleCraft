@@ -1,11 +1,11 @@
 pipeline {
-
     agent any
-
     environment {
         DISCORD_WEBHOOK = credentials("tamago-saba-discord-webhook")
     }
-
+    options {
+        buildDiscarder(logRotator(artifactNumToKeepStr: '3'))
+    }
     stages {
         stage("Build") {
             agent {
@@ -25,7 +25,6 @@ pipeline {
             }
         }
     }
-
     post {
         always {
             script {
@@ -59,8 +58,8 @@ pipeline {
 
                 env.changes = message
             }
+            deleteDir()
             discordSend description: "**Build:** [${currentBuild.id}](${env.BUILD_URL})\n**Status:** [${currentBuild.currentResult}](${env.BUILD_URL})\n${changes}\n\n[**Artifacts on Jenkins**](https://ci.tamago-saba.com/job/BattleRoyaleCraft)", footer: 'tamago-saba Jenkins', link: env.BUILD_URL, successful: currentBuild.resultIsBetterOrEqualTo('SUCCESS'), title: "${env.JOB_NAME} #${currentBuild.id}", webhookURL: env.DISCORD_WEBHOOK
         }
     }
-
 }
