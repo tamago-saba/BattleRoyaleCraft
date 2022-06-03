@@ -1,19 +1,24 @@
 package com.github.tsuoihito.battleroyalecraft;
 
-import com.github.tsuoihito.battleroyalecraft.model.GameData;
-import com.github.tsuoihito.battleroyalecraft.model.PluginState;
+import com.github.tsuoihito.battleroyalecraft.model.GameConfig;
+import com.github.tsuoihito.battleroyalecraft.model.GameState;
 import com.github.tsuoihito.battleroyalecraft.utils.GameManager;
+import org.bukkit.WorldBorder;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BattleRoyaleCraft extends JavaPlugin {
 
-    private final PluginState pluginState = new PluginState();
-    private final GameData gameData = new GameData();
+    private boolean inGame;
+    private GameState gameState;
+
+    private WorldBorder worldBorder;
+
+    private final GameConfig gameConfig = new GameConfig();
     private final GameManager gameManager = new GameManager(this);
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        setInGame(false);
     }
 
     @Override
@@ -21,12 +26,32 @@ public final class BattleRoyaleCraft extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public PluginState getPluginState() {
-        return pluginState;
+    public GameState getGameState() {
+        return gameState;
     }
 
-    public GameData getGameData() {
-        return gameData;
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
+
+    public WorldBorder getWorldBorder() {
+        return worldBorder;
+    }
+
+    public void setWorldBorder(WorldBorder worldBorder) {
+        this.worldBorder = worldBorder;
+    }
+
+    public GameConfig getGameConfig() {
+        return gameConfig;
     }
 
     public GameManager getGameManager() {

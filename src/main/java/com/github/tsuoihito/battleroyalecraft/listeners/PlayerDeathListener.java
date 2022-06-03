@@ -18,18 +18,18 @@ public class PlayerDeathListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent e) {
 
-        if (!plugin.getPluginState().isInGame()) {
+        if (!plugin.isInGame()) {
             return;
         }
 
-        if (!plugin.getPluginState().getGameState().getPlayerDataOptional(e.getEntity().getUniqueId()).isPresent()) {
+        if (!plugin.getGameState().getPlayerDataOptional(e.getEntity().getUniqueId()).isPresent()) {
             return;
         }
 
-        plugin.getPluginState().getGameState().getPlayerDataOptional(e.getEntity().getUniqueId()).get().setDead(true);
+        plugin.getGameState().getPlayerDataOptional(e.getEntity().getUniqueId()).get().setDead(true);
         e.getEntity().setGameMode(GameMode.SPECTATOR);
 
-        if (plugin.getPluginState().getGameState().getLivingPlayerDataList().size() == 1) {
+        if (plugin.getGameState().getLivingPlayerDataList().size() == 1) {
             plugin.getGameManager().finishGame();
         }
 
@@ -37,11 +37,11 @@ public class PlayerDeathListener implements Listener {
             return;
         }
 
-        if (!plugin.getPluginState().getGameState().getPlayerDataOptional(e.getEntity().getKiller().getUniqueId()).isPresent()) {
+        if (!plugin.getGameState().getPlayerDataOptional(e.getEntity().getKiller().getUniqueId()).isPresent()) {
             return;
         }
 
-        plugin.getPluginState().getGameState().getPlayerDataOptional(e.getEntity().getKiller().getUniqueId()).get().increaseKillCount();
+        plugin.getGameState().getPlayerDataOptional(e.getEntity().getKiller().getUniqueId()).get().increaseKillCount();
 
     }
 }

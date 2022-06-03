@@ -17,11 +17,11 @@ public class PlayerQuitListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerQuit(PlayerQuitEvent e) {
 
-        if (!plugin.getPluginState().isInGame()) {
+        if (!plugin.isInGame()) {
             return;
         }
 
-        plugin.getPluginState().getGameState().removePlayerData(e.getPlayer().getUniqueId());
+        plugin.getGameState().removePlayerData(e.getPlayer().getUniqueId());
 
     }
 }

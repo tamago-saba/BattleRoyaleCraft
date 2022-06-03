@@ -18,7 +18,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent e) {
 
-        if (!plugin.getPluginState().isInGame()) {
+        if (!plugin.isInGame()) {
             plugin.getGameManager().teleportAllLobby();
             return;
         }

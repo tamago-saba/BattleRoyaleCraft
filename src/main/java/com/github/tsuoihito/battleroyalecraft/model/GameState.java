@@ -11,7 +11,7 @@ public class GameState {
     private Integer elapsedTime;
     private final List<PlayerData> playerDataList;
 
-    public GameState(){
+    public GameState() {
 
         elapsedTime = 0;
         playerDataList = new ArrayList<>();
